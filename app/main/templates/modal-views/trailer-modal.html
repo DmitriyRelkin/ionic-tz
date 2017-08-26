@@ -2,9 +2,13 @@
   <ion-content>
     <button class="button button-small button-light" ng-click="closeTrailer()">X</button>
     <div class="wrapper-trailer" ng-if="playVideo">
-      <iframe width="100%" height="300" ng-src="https://www.youtube.com/embed/{{videoKey}}?vq={{trailerQuality}}" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" height="300" ng-src="{{getIframeSrc(videoKey, trailerQuality)}}" frameborder="0" allowfullscreen></iframe>
     </div>
-    <show-trailers trailers="trailers" play-trailer="playTrailer()"></show-trailers>
+    <!--<show-trailers trailers="trailers" play-trailer="playTrailer()"></show-trailers>-->
+    <div class="wrapper-buttons-trailer">
+      <p ng-repeat-start="trailer in trailers">{{trailer.name}}:</p>
+      <button ng-repeat-end class="button button-small button-assertive" ng-click="playTrailer(trailer.size, trailer.key)"> {{trailer.size+"p"}}</button>
+    </div>
   </ion-content>
 </ion-modal>
 

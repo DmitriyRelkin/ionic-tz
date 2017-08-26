@@ -3,6 +3,7 @@ angular.module('main', [
   'ionic',
   'ngCordova',
   'ui.router',
+  'ngSanitize',
   // TODO: load other modules selected during generation
 ])
 .config(function ($stateProvider, $urlRouterProvider) {

@@ -7,8 +7,8 @@
 angular
 .module('main')
 .controller('topFilmCtrl', topFilmCtrl);
-topFilmCtrl.$inject = ['$scope', '$log', 'TopFilms', '$ionicModal', 'GetTrailer'];
-function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer) {
+topFilmCtrl.$inject = ['$scope', '$log', 'TopFilms', '$ionicModal', 'GetTrailer', '$sce'];
+function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
   /**
   * @ngdoc property
   * @name vm
@@ -79,10 +79,14 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer) {
   }
 
   $scope.playTrailer = function (px, key) {
+    console.log(px, key, $scope);
     $scope.trailerQuality = px;
     $scope.videoKey = key;
     $scope.playVideo = true;
     console.log(px);
+  };
+  $scope.getIframeSrc = function (videoKey, trailerQuality) {
+    return $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + videoKey + '?vq=' + trailerQuality);
   };
 }
 
