@@ -1,0 +1,18 @@
+{
+  "generator-m-ionic": {
+    "answers": {
+      "appName": "TopFilmApp",
+      "appId": "TopFilmApp.com",
+      "ionicCss": false,
+      "bowerPackages": [],
+      "platforms": [
+        "ios",
+        "android"
+      ],
+      "plugins": [],
+      "appModule": "TopFilmApp",
+      "ecosystems": [],
+      "install": "npm"
+    }
+  }
+}
