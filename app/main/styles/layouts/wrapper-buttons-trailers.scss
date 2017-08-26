@@ -1,0 +1,12 @@
+.wrapper-buttons-trailer {
+  p {
+    color: aliceblue;
+    font-weight: bold;
+  }
+  background: #444444;
+  display: flex;
+  flex-direction: column;
+  button {
+    width: 50px;
+  }
+}

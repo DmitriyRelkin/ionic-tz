@@ -1,20 +1,26 @@
 <ion-view view-title="Top 20" ng-init="vm.topFilmLoader()">
   <ion-content>
     <ion-list class="films-list">
-      <div ng-if="!vm.dataFilms.length">
-        <img src="./main/assets/images/Loading_icon.gif" alt="">
-      </div>
+      <preloader condition="!vm.dataFilms.length"></preloader>
       <ion-item ng-repeat="film in vm.dataFilms track by $index">
         <div class="img-container">
           <img ng-src="{{film.urlPoster}}" alt="">
         </div>
         <div class="info-container">
           <h2>{{film.title}}</h2>
-          <p class="year-film">{{film.year}}</p>
+          <p class="year-film">year: {{film.year}}</p>
           <p class="rating-film">rating: {{film.rating}}</p>
-          <p class="genre-film">genre: {{film.genres}}</p>
-          <p class="countries-film">country: {{film.countries}}</p>
-          <p class="director-film">director: {{film.directors}}</p>
+
+          <p class="genre-film" list-genres genres="film.genres"></p>
+          <p class="countries-film" list-countries countries="film.countries"></p>
+          <p class="director-film" director-link directors="film.directors"></p>
+          <div>
+            <button class="button button-small button-assertive" ng-click="vm.trailersLoader(film.idIMDB, $index)">
+              <!--Show Trailer-->
+               {{vm.filmItem == $index ? 'Loading...' : 'Show Trailer'}}
+            </button>
+          <!--<preloader condition="true"></preloader>-->
+          </div>
         </div>
       </ion-item>
     </ion-list>
@@ -29,3 +35,4 @@
     <!--<iframe width="100%" height="300" src="https://www.youtube.com/embed/fa75iDdrktQ?vq=small" frameborder="0" allowfullscreen></iframe>-->
     <!--<iframe width="100%" height="300" src="https://www.youtube.com/embed/fa75iDdrktQ?vq=medium" frameborder="0" allowfullscreen></iframe>-->
     <!--<iframe width="100%" height="300" src="https://www.youtube.com/embed/fa75iDdrktQ?vq=large" frameborder="0" allowfullscreen></iframe>-->
+<!--film.idIMDB-->

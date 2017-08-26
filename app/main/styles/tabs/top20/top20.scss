@@ -1,4 +1,9 @@
 .films-list {
+  .films-loading {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
   ion-item {
     padding: 0;
     display: flex;
@@ -6,6 +11,50 @@
     .img-container {
       img {
         width: 150px;
+      }
+    }
+    .info-container {
+      width: 100%;
+      h2 {
+        width: 80%;
+      }
+      & > p {
+        border: 1px solid grey;
+        text-align: left;
+      }
+      .genre-film {
+        .wrapper-genres {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          p {
+            margin: 0 2px;
+          }
+        }
+      }
+      .countries-film {
+        .wraper-countries {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            p {
+              margin: 0 2px;
+            }
+        }
+      }
+      .director-film {
+        .wrapper-directors {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          p {
+            margin: 0 2px;
+            a {
+              text-decoration: none;
+              color: black;
+            }
+          }
+        }
       }
     }
   }

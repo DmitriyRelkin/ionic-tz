@@ -7,8 +7,8 @@
 angular
 .module('main')
 .controller('topFilmCtrl', topFilmCtrl);
-topFilmCtrl.$inject = ['$log', 'TopFilms'];
-function topFilmCtrl ($log, TopFilms) {
+topFilmCtrl.$inject = ['$scope', '$log', 'TopFilms', '$ionicModal', 'GetTrailer'];
+function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer) {
   /**
   * @ngdoc property
   * @name vm
@@ -17,6 +17,7 @@ function topFilmCtrl ($log, TopFilms) {
   */
   var vm = this;
   vm.topFilmLoader = topFilmLoader;
+  vm.trailersLoader = trailersLoader;
 
   /**
   * @ngdoc property
@@ -34,5 +35,54 @@ function topFilmCtrl ($log, TopFilms) {
       $log.error('Error load', err);
     });
   }
+
+  $ionicModal.fromTemplateUrl('./main/templates/modal-views/trailer-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    vm.taskModal = modal;
+  });
+
+  vm.openTrailer = function () {
+    if ($scope.trailers.length) {
+      vm.taskModal.show();
+    }
+    // vm.existTrailer = false;
+  };
+
+  $scope.closeTrailer = function () {
+    vm.taskModal.hide();
+  };
+
+  $scope.trailers = [];
+  vm.loaderTrailers = false;
+  vm.filmItem = -1;
+  // vm.existTrailer = true;
+
+  function trailersLoader (id, element) {
+    vm.loaderTrailers = true;
+    vm.filmItem = element;
+    var trailers = [];
+    GetTrailer.load(id).then(function (response) {
+      vm.filmItem = -1;
+      vm.loaderTrailers = false;
+      response.data.data.videos.forEach(function (item) {
+        if (item.type !== 'Trailer') {return;}
+        trailers.push(item);
+      });
+      $scope.trailers = trailers;
+      vm.openTrailer();
+      console.log($scope.trailers);
+    }).catch(function (err) {
+      $log.error('Error load', err);
+    });
+  }
+
+  $scope.playTrailer = function (px, key) {
+    $scope.trailerQuality = px;
+    $scope.videoKey = key;
+    $scope.playVideo = true;
+    console.log(px);
+  };
 }
 
