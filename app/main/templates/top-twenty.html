@@ -17,7 +17,7 @@
           <div>
             <button class="button button-small button-assertive" ng-click="vm.trailersLoader(film.idIMDB, $index)">
                {{vm.filmItem == $index ? 'Search...' : 'Show Trailer'}}
-            </button>
+            </button >
             <button ng-disabled="film.favorite" class="button button-small button-assertive" ng-click="vm.favoritesHandler($index)">
               {{film.favorite ? 'Added to favorites' : 'Add to favorites' }}
             </button>
