@@ -1,6 +1,13 @@
 'use strict';
 angular.module('main')
-  .directive('listCountries', listCountries);
+/**
+ * @ngdoc directive
+ * @name listCountries
+ * @restrict A
+ * @description
+ * This directive creates a list of countries that created this film
+ **/
+.directive('listCountries', listCountries);
 function listCountries () {
   return {
     restrict: 'A',

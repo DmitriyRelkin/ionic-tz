@@ -1,6 +1,13 @@
 'use strict';
 angular
 .module('main')
+/**
+ * @ngdoc service
+ * @name movieService
+ * @description
+ * This service for downloading the list of top films,
+ * and also for loading trailers to movies
+ **/
 .factory('movieService', movieService);
 movieService.$inject = ['$http'];
 function movieService ($http) {

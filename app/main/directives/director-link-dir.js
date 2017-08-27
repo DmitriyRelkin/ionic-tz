@@ -1,5 +1,12 @@
 'use strict';
 angular.module('main')
+/**
+ * @ngdoc directive
+ * @name directorLink
+ * @restrict A
+ * @description
+ * This directive creates links to the pages of directors
+ **/
 .directive('directorLink', directorLink);
 function directorLink () {
   return {

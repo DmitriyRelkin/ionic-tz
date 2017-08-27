@@ -54,7 +54,7 @@ function topFilmCtrl ($scope, $log, movieService, $ionicModal, $sce) {
    * @ngdoc property
    * @name $scope.foundTrailer
    * @description
-   * Number of the selected movie item to show trailer
+   * Flag which tells that trailer is found
    **/
   $scope.foundTrailer = true;
 
@@ -62,7 +62,7 @@ function topFilmCtrl ($scope, $log, movieService, $ionicModal, $sce) {
    * @ngdoc property
    * @name vm.yearsFilms
    * @description
-   * An array keeps al years films
+   * An array keeps years films
    **/
   vm.yearsFilms = [];
 
@@ -70,7 +70,7 @@ function topFilmCtrl ($scope, $log, movieService, $ionicModal, $sce) {
    * @ngdoc property
    * @name vm.countFilms
    * @description
-   * An array keeps all years films
+   * An array of the number of films by year
    **/
   vm.countFilms = [];
 
