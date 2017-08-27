@@ -1,8 +1,29 @@
-<ion-view view-title="Favorites Films">
+<ion-view view-title="Favorites Films" ng-init="vm.topFilmLoader()">
   <ion-content>
-    <h2>Favorites films</h2>
-    <ion-list>
+    <ion-list class="films-list">
+      <preloader condition="!vm.favoritesFilms.length"></preloader>
+      <ion-item ng-repeat="film in vm.favoritesFilms track by $index">
+        <div class="img-container">
+          <img ng-src="{{film.urlPoster}}" alt="">
+        </div>
+        <div class="info-container">
+          <h2>{{film.title}}</h2>
+          <p class="year-film">year: {{film.year}}</p>
+          <p class="rating-film">rating: {{film.rating}}</p>
 
+          <div class="genre-film" list-genres genres="film.genres"></div>
+          <div class="countries-film" list-countries countries="film.countries"></div>
+          <div class="director-film" director-link directors="film.directors"></div>
+          <div>
+            <button class="button button-small button-assertive" ng-click="vm.trailersLoader(film.idIMDB, $index)">
+              {{vm.filmItem == $index ? 'Search...' : 'Show Trailer'}}
+            </button>
+            <button class="button button-small button-assertive" ng-click="vm.deleteFromFavorites($index)">
+              Delete from favorites
+            </button>
+          </div>
+        </div>
+      </ion-item>
     </ion-list>
 
   </ion-content>

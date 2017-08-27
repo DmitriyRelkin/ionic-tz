@@ -30,3 +30,6 @@ $ionicons-font-path: "../assets/fonts" !default;
 //Modals
 @import 'modal-view/modal-view';
 
+ion-content {
+  background: #f2f2f2;
+}

@@ -2,7 +2,7 @@
   <ion-content class="decade-content">
     <preloader condition="!vm.dataFilms.length"></preloader>
     <canvas id="doughnut" class="chart chart-doughnut decade-chart"
-            chart-options="vm.options" chart-data="vm.countFilms" chart-labels="vm.countYears">
+      chart-options="vm.options" chart-data="vm.countFilms" chart-labels="vm.countYears">
     </canvas>
     <span ng-if="vm.dataFilms.length" class="info-donut">Click on the color in the donut, to see the number of films</span>
   </ion-content>

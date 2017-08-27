@@ -19,6 +19,10 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
   vm.topFilmLoader = topFilmLoader;
   vm.trailersLoader = trailersLoader;
   vm.dacadeHandler = dacadeHandler;
+  vm.favoritesHandler = favoritesHandler;
+  vm.deleteFromFavorites = deleteFromFavorites;
+  vm.saveFavoritesFilms = saveFavoritesFilms;
+  vm.loaderFavoritesFilms = loaderFavoritesFilms;
 
   $scope.trailers = [];
   vm.loaderTrailers = false;
@@ -27,6 +31,8 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
   vm.yearsFilms = [];
   vm.countFilms = [];
   vm.countYears = [];
+  vm.favoritesFilms = [];
+
   /**
   * @ngdoc property
   * @name vm.dataFilms
@@ -41,6 +47,7 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
       if (vm.dataFilms.length) {
         vm.dacadeHandler(vm.dataFilms);
       }
+      vm.loaderFavoritesFilms();
     }).catch(function (err) {
       $log.error('Error load', err);
     });
@@ -135,5 +142,35 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
   $scope.getIframeSrc = function (videoKey, trailerQuality) {
     return $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + videoKey + '?vq=' + trailerQuality);
   };
+
+  function favoritesHandler (id) {
+    vm.dataFilms[id].favorite = true;
+    vm.dataFilms[id].topId = id;
+    vm.favoritesFilms.push(vm.dataFilms[id]);
+    vm.saveFavoritesFilms();
+  }
+
+  function saveFavoritesFilms () {
+    window.localStorage.setItem('favoritesFilms', JSON.stringify(vm.favoritesFilms));
+  }
+
+  function deleteFromFavorites (id) {
+    delete vm.dataFilms[vm.favoritesFilms[id].topId].favorite;
+    delete vm.dataFilms[vm.favoritesFilms[id].topId].topId;
+    vm.favoritesFilms.splice(id, 1);
+    vm.saveFavoritesFilms();
+  }
+
+  function loaderFavoritesFilms () {
+    if (window.localStorage.getItem('favoritesFilms')) {
+      vm.favoritesFilms = JSON.parse(window.localStorage.getItem('favoritesFilms'));
+    } else {
+      vm.favoritesFilms = [];
+    }
+    vm.favoritesFilms.forEach(function (film) {
+      vm.dataFilms[film.topId].favorite = true;
+      vm.dataFilms[film.topId].topId = film.topIds;
+    });
+  }
 }
 
