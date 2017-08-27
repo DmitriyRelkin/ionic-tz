@@ -1,5 +1,5 @@
 <ion-view view-title="Top 20" ng-init="vm.topFilmLoader()">
-  <ion-content>
+  <ion-content class="top20-content">
     <ion-list class="films-list">
       <preloader condition="!vm.dataFilms.length"></preloader>
       <ion-item ng-repeat="film in vm.dataFilms track by $index">

@@ -23,8 +23,10 @@ $ionicons-font-path: "../assets/fonts" !default;
 
 //Tabs
 @import 'tabs/top20/top20';
+@import 'tabs/decade/decade';
 //Layouts
 @import 'layouts/wrapper-buttons-trailers';
+@import 'layouts/preloader.scss';
 //Modals
 @import 'modal-view/modal-view';
 

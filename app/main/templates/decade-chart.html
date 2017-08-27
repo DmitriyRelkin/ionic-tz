@@ -1,9 +1,9 @@
-<ion-view view-title="Decade Chart">
-  <ion-content>
-    <h2>Decade chart</h2>
-    <ion-list>
-
-    </ion-list>
-
+<ion-view view-title="Decade Chart" ng-init="vm.topFilmLoader()">
+  <ion-content class="decade-content">
+    <preloader condition="!vm.dataFilms.length"></preloader>
+    <canvas id="doughnut" class="chart chart-doughnut decade-chart"
+            chart-options="vm.options" chart-data="vm.countFilms" chart-labels="vm.countYears">
+    </canvas>
+    <span ng-if="vm.dataFilms.length" class="info-donut">Click on the color in the donut, to see the number of films</span>
   </ion-content>
 </ion-view>

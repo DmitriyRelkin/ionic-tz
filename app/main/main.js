@@ -4,6 +4,7 @@ angular.module('main', [
   'ngCordova',
   'ui.router',
   'ngSanitize',
+  'chart.js',
   // TODO: load other modules selected during generation
 ])
 .config(function ($stateProvider, $urlRouterProvider) {

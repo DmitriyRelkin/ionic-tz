@@ -18,7 +18,15 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
   var vm = this;
   vm.topFilmLoader = topFilmLoader;
   vm.trailersLoader = trailersLoader;
+  vm.dacadeHandler = dacadeHandler;
 
+  $scope.trailers = [];
+  vm.loaderTrailers = false;
+  vm.filmItem = -1;
+  $scope.foundTrailer = true;
+  vm.yearsFilms = [];
+  vm.countFilms = [];
+  vm.countYears = [];
   /**
   * @ngdoc property
   * @name vm.dataFilms
@@ -30,10 +38,54 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
   function topFilmLoader () {
     TopFilms.load().then(function (response) {
       vm.dataFilms = response.data.data.movies;
+      if (vm.dataFilms.length) {
+        vm.dacadeHandler(vm.dataFilms);
+      }
     }).catch(function (err) {
       $log.error('Error load', err);
     });
   }
+
+  function dacadeHandler (dataFilms) {
+    if (!vm.yearsFilms.length) {
+      var arrYears = [];
+      var result;
+      var obj = {};
+
+      dataFilms.forEach(function (item) {
+        vm.yearsFilms.push(parseInt(item.year));
+      });
+
+      vm.yearsFilms.forEach(function (item) {
+        result = item - (item % 10);
+        arrYears.push(result);
+      });
+      for (var i = 0, j = arrYears.length; i < j; i++) {
+        if (obj[arrYears[i]]) {
+          obj[arrYears[i]]++;
+        }
+        else {
+          obj[arrYears[i]] = 1;
+        }
+      }
+
+      if (!vm.countFilms.length && !vm.countYears.length) {
+        for (var key in obj) {
+          vm.countFilms.push(obj[key]);
+          vm.countYears.push(key);
+        }
+      }
+    }
+  }
+
+  vm.options = {
+    legend: {
+      display: true,
+      labels: {
+        fontColor: 'rgb(255, 99, 132)'
+      }
+    }
+  };
 
   $ionicModal.fromTemplateUrl('./main/templates/modal-views/trailer-modal.html', {
     scope: $scope,
@@ -51,10 +103,6 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
     vm.taskModal.hide();
   };
 
-  $scope.trailers = [];
-  vm.loaderTrailers = false;
-  vm.filmItem = -1;
-  $scope.foundTrailer = true;
 
   function trailersLoader (id, element) {
     vm.loaderTrailers = true;
