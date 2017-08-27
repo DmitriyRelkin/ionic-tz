@@ -29,7 +29,6 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
 
   function topFilmLoader () {
     TopFilms.load().then(function (response) {
-      console.log(response.data.data.movies);
       vm.dataFilms = response.data.data.movies;
     }).catch(function (err) {
       $log.error('Error load', err);
@@ -44,23 +43,22 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
   });
 
   vm.openTrailer = function () {
-    if ($scope.trailers.length) {
-      vm.taskModal.show();
-    }
-    // vm.existTrailer = false;
+    vm.taskModal.show();
   };
 
   $scope.closeTrailer = function () {
+    $scope.playVideo = false;
     vm.taskModal.hide();
   };
 
   $scope.trailers = [];
   vm.loaderTrailers = false;
   vm.filmItem = -1;
-  // vm.existTrailer = true;
+  $scope.foundTrailer = true;
 
   function trailersLoader (id, element) {
     vm.loaderTrailers = true;
+    $scope.foundTrailer = true;
     vm.filmItem = element;
     var trailers = [];
     GetTrailer.load(id).then(function (response) {
@@ -71,20 +69,21 @@ function topFilmCtrl ($scope, $log, TopFilms, $ionicModal, GetTrailer, $sce) {
         trailers.push(item);
       });
       $scope.trailers = trailers;
+      if (!$scope.trailers.length) {
+        $scope.foundTrailer = false;
+      }
       vm.openTrailer();
-      console.log($scope.trailers);
     }).catch(function (err) {
       $log.error('Error load', err);
     });
   }
 
   $scope.playTrailer = function (px, key) {
-    console.log(px, key, $scope);
     $scope.trailerQuality = px;
     $scope.videoKey = key;
     $scope.playVideo = true;
-    console.log(px);
   };
+
   $scope.getIframeSrc = function (videoKey, trailerQuality) {
     return $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + videoKey + '?vq=' + trailerQuality);
   };

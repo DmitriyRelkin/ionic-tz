@@ -11,28 +11,16 @@
           <p class="year-film">year: {{film.year}}</p>
           <p class="rating-film">rating: {{film.rating}}</p>
 
-          <p class="genre-film" list-genres genres="film.genres"></p>
-          <p class="countries-film" list-countries countries="film.countries"></p>
-          <p class="director-film" director-link directors="film.directors"></p>
+          <div class="genre-film" list-genres genres="film.genres"></div>
+          <div class="countries-film" list-countries countries="film.countries"></div>
+          <div class="director-film" director-link directors="film.directors"></div>
           <div>
             <button class="button button-small button-assertive" ng-click="vm.trailersLoader(film.idIMDB, $index)">
-              <!--Show Trailer-->
-               {{vm.filmItem == $index ? 'Loading...' : 'Show Trailer'}}
+               {{vm.filmItem == $index ? 'Search...' : 'Show Trailer'}}
             </button>
-          <!--<preloader condition="true"></preloader>-->
           </div>
         </div>
       </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>
-    <!--<video width="400" controls>-->
-      <!--<source src="mov_bbb.mp4" type="video/mp4">-->
-      <!--<source src="mov_bbb.ogg" type="video/ogg">-->
-      <!--Your browser does not support HTML5 video.-->
-    <!--</video>-->
-
-    <!--<iframe width="100%" height="300" src="https://www.youtube.com/embed/fa75iDdrktQ?vq=small" frameborder="0" allowfullscreen></iframe>-->
-    <!--<iframe width="100%" height="300" src="https://www.youtube.com/embed/fa75iDdrktQ?vq=medium" frameborder="0" allowfullscreen></iframe>-->
-    <!--<iframe width="100%" height="300" src="https://www.youtube.com/embed/fa75iDdrktQ?vq=large" frameborder="0" allowfullscreen></iframe>-->
-<!--film.idIMDB-->
